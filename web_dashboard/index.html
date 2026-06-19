@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTZ Camera Web Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <div class="app-header">🔴 HỆ THỐNG GIÁM SÁT CAMERA PTZ - LIVE CONTROL</div>
+
+        <div class="app-body">
+            <div class="camera-grid">
+
+                <div class="camera-card active" id="card-cam_lab" onclick="selectCamera('cam_lab')">
+                    <div class="camera-title">🔴 PHÒNG THÍ NGHIỆM</div>
+                    <div class="video-frame">
+                        <img src="/api/v1/camera/cam_lab/stream" alt="Đang tải luồng Cam Lab...">
+                    </div>
+                </div>
+
+                <div class="camera-card" id="card-cam_gate" onclick="selectCamera('cam_gate')">
+                    <div class="camera-title">⚪ CỔNG TRƯỚC</div>
+                    <div class="video-frame">
+                        <img src="/api/v1/camera/cam_gate/stream" alt="Đang tải luồng Cam Cổng...">
+                    </div>
+                </div>
+
+                <div class="camera-card" id="card-cam_canteen" onclick="selectCamera('cam_canteen')">
+                    <div class="camera-title">⚪ NHÀ ĂN CÔNG TY</div>
+                    <div class="video-frame">
+                        <img src="/api/v1/camera/cam_canteen/stream" alt="Đang tải luồng Cam Nhà Ăn...">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="control-panel">
+                <h3>Điều khiển quay quét</h3>
+
+                <div class="current-target" id="currentTargetCam">Đang chọn: PHÒNG THÍ NGHIỆM</div>
+
+                <div class="ptz-grid">
+                    <div></div>
+                    <button class="ptz-btn" onclick="sendPtzCommand('up')">▲</button>
+                    <div></div>
+
+                    <button class="ptz-btn" onclick="sendPtzCommand('left')">◀</button>
+                    <button class="ptz-btn btn-stop" onclick="sendPtzCommand('stop')">■</button>
+                    <button class="ptz-btn" onclick="sendPtzCommand('right')">▶</button>
+
+                    <div></div>
+                    <button class="ptz-btn" onclick="sendPtzCommand('down')">▼</button>
+                    <div></div>
+                </div>
+
+                <div class="zoom-container">
+                    <button class="zoom-btn" onclick="sendZoomCommand(true)">ZOOM IN (+)</button>
+                    <button class="zoom-btn" onclick="sendZoomCommand(false)">ZOOM OUT (-)</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="app-footer" id="logBar">Trạng thái: Hệ thống sẵn sàng kết nối.</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

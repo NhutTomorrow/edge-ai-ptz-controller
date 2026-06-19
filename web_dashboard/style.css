@@ -1,0 +1,214 @@
+body {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.app-container {
+    background-color: #2d2d2d;
+    border: 2px solid #3e3e3e;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    width: 1200px;
+    /* Tăng chiều rộng để vừa vặn lưới đa camera */
+    overflow: hidden;
+    transition: width 0.3s ease;
+}
+
+.app-header {
+    background-color: #111111;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #3e3e3e;
+    color: #00ffcc;
+}
+
+.app-body {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* ==================== PHÂN TÁCH LƯỚI ĐA CAMERA MỚI ==================== */
+.camera-grid {
+    flex: 2.5;
+    /* Ưu tiên không gian rộng hơn cho phần hiển thị video */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* Tự động chia làm 2 cột bằng nhau */
+    gap: 15px;
+    /* Khoảng cách giữa các ô camera */
+}
+
+.camera-card {
+    background-color: #1e1e1e;
+    border: 2px solid #444444;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.camera-card:hover {
+    border-color: #666666;
+    transform: translateY(-2px);
+    /* Hiệu ứng nổi nhẹ khi di chuột vào */
+}
+
+/* Hiệu ứng kích hoạt (Active) khi được click chọn để điều khiển PTZ */
+.camera-card.active {
+    border-color: #00ffcc;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.25);
+}
+
+.camera-title {
+    background-color: #111111;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #aaaaaa;
+    border-bottom: 1px solid #3e3e3e;
+    transition: color 0.2s;
+}
+
+.camera-card.active .camera-title {
+    color: #00ffcc;
+    /* Chữ sáng xanh khi được chọn */
+}
+
+.video-frame {
+    background-color: #000000;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 16/9;
+    /* Giữ tỷ lệ vàng chống méo hình hình ảnh camera */
+}
+
+.video-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* ==================== BẢNG ĐIỀU KHIỂN NÚT BẤM CŨ ==================== */
+.control-panel {
+    flex: 1;
+    background-color: #252526;
+    border: 1px solid #444444;
+    border-radius: 4px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 250px;
+}
+
+.control-panel h3 {
+    margin-top: 0;
+    color: #aaaaaa;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-bottom: 1px solid #444444;
+    width: 100%;
+    text-align: center;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+/* Kiểu dáng nhãn định danh mục tiêu camera đang chọn */
+.current-target {
+    background-color: #111111;
+    color: #00ffcc;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid #3e3e3e;
+    margin-bottom: 5px;
+}
+
+.ptz-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    grid-template-rows: repeat(3, 60px);
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.ptz-btn {
+    background-color: #333333;
+    color: white;
+    border: 1px solid #555555;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ptz-btn:hover {
+    background-color: #00ffcc;
+    color: #000000;
+    border-color: #00ffcc;
+}
+
+.ptz-btn:active {
+    transform: scale(0.95);
+}
+
+.btn-stop {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+
+.btn-stop:hover {
+    background-color: #ff3333;
+    color: white;
+}
+
+.zoom-container {
+    width: 100%;
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.zoom-btn {
+    flex: 1;
+    padding: 10px;
+    background-color: #3e3e42;
+    color: white;
+    border: 1px solid #555555;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.zoom-btn:hover {
+    background-color: #007acc;
+    border-color: #007acc;
+}
+
+.app-footer {
+    background-color: #111111;
+    padding: 8px 20px;
+    font-size: 12px;
+    color: #888888;
+    border-top: 1px solid #3e3e3e;
+}
