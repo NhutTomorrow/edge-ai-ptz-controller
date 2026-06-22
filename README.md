@@ -27,5 +27,8 @@ cd ~/edge-ai-ptz-controller
 ### 2. Kích hoạt môi trường ảo vtenv của hệ thống
 source ~/vtenv/bin/activate
 
-### 3. Khởi chạy máy chủ API Gateway và Worker nền MQTT
+### 3. Cài đặt các thư viện lõi cốt lỏi của hệ thống
+pip install fastapi uvicorn paho-mqtt opencv-python onvif-zeep requests pydantic-settings
+
+### 4. Khởi chạy máy chủ API Gateway và Worker nền MQTT
 python main.py
