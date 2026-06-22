@@ -20,21 +20,12 @@ Hệ thống đóng vai trò như một Trung tâm điều phối tại biên (E
 
 Hệ thống được tổ chức vận hành theo luồng dữ liệu 3 lớp tuần tự khép kín:
 
-```mermaid
-graph TD
-    subgraph Hardware Layer (Lớp phần cứng văn phòng)
-        Cam1[HIKVision Cam Lab - 192.168.1.200] -- RTSP Substream --> Pi4[Edge Gateway: Raspberry Pi 4]
-        Cam2[HIKVision Cam Gate - 192.168.1.203] -- RTSP Substream --> Pi4
-        Pi4 -- ONVIF SOAP / ISAPI PUT --> Cam1
-    end
+## 🛠️ Hướng dẫn khởi chạy hệ thống
+### 1. Di chuyển vào thư mục dự án
+cd ~/edge-ai-ptz-controller
 
-    subgraph Core Services Layer (Lớp dịch vụ biên)
-        Pi4 -- FastAPI Webserver --> WebDash[Web Dashboard Frontend]
-        Broker[Company MQTT Broker] -- Topic: camera/ptz --> MQTTWorker[MQTT Asynchronous Worker]
-        MQTTWorker -- Call Shared Service --> Pi4
-    end
+### 2. Kích hoạt môi trường ảo vtenv của hệ thống
+source ~/vtenv/bin/activate
 
-    subgraph Client Layer (Lớp vận hành từ xa)
-        User((Kỹ sư vận hành)) -- Click UI Nút bấm --> WebDash
-        User -- Publish Remote JSON --> Broker
-    end
+### 3. Khởi chạy máy chủ API Gateway và Worker nền MQTT
+python main.py
