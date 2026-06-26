@@ -46,8 +46,7 @@ edge-ai-ptz-controller/
 │
 ├── .env                     # Lưu trữ biến môi trường bảo mật (Ẩn công khai)
 ├── main.py                  # Điểm khởi chạy trung tâm (Application Entrypoint)
-└── requirements.txt         # Danh sách quản lý thư viện phụ thuộc
-Hệ thống được tổ chức vận hành theo luồng dữ liệu 3 lớp tuần tự khép kín:
+
 ```
 
 ## 🛠️ Hướng dẫn khởi chạy hệ thống
