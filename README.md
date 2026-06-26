@@ -48,8 +48,7 @@ edge-ai-ptz-controller/
 ├── main.py                  # Điểm khởi chạy trung tâm (Application Entrypoint)
 └── requirements.txt         # Danh sách quản lý thư viện phụ thuộc
 Hệ thống được tổ chức vận hành theo luồng dữ liệu 3 lớp tuần tự khép kín:
-
-
+```
 
 ## 🛠️ Hướng dẫn khởi chạy hệ thống
 ### 1. Di chuyển vào thư mục dự án
