@@ -16,8 +16,37 @@ Hệ thống đóng vai trò như một Trung tâm điều phối tại biên (E
 
 ---
 
-## 📐 Sơ đồ kiến trúc hệ thống
+## 🌳 Sơ đồ cấu trúc cây thư mục (Directory Tree)
 
+Hệ thống Edge AI PTZ Camera Controller & Gateway được tái cấu trúc từ mô hình nguyên khối phẳng (Flat Monolith) sang mô hình **Kiến trúc phân lớp hướng dịch vụ (Modular Layered Architecture)**. Việc phân tách này tuân thủ nguyên lý *Single Responsibility Principle (SRP)* và *Separation of Concerns (SoC)*, giúp mã nguồn dễ bảo trì, cô lập lỗi và sẵn sàng tích hợp các mô hình học sâu (AI Inference).
+
+```text
+edge-ai-ptz-controller/
+│
+├── config/
+│   ├── __init__.py
+│   └── settings.py          # Tầng cấu hình (Configuration Layer)
+│
+├── core/
+│   ├── __init__.py
+│   ├── camera_manager.py    # Tầng dịch vụ lõi phần cứng (Core Service Layer)
+│   └── ai_pipeline.py       # Tầng xử lý thị giác máy tính (AI Vision Layer)
+│
+├── api/
+│   ├── __init__.py
+│   └── routes.py            # Tầng giao tiếp HTTP API (API Delivery Layer)
+│
+├── workers/
+│   └── mqtt_worker.py       # Tầng xử lý sự kiện ngầm (Asynchronous Worker Layer)
+│
+├── web_dashboard/           # Tầng giao diện người dùng (Frontend Layer)
+│   ├── index.html
+│   ├── style.css
+│   └── script.js
+│
+├── .env                     # Lưu trữ biến môi trường bảo mật (Ẩn công khai)
+├── main.py                  # Điểm khởi chạy trung tâm (Application Entrypoint)
+└── requirements.txt         # Danh sách quản lý thư viện phụ thuộc
 Hệ thống được tổ chức vận hành theo luồng dữ liệu 3 lớp tuần tự khép kín:
 
 ## 🛠️ Hướng dẫn khởi chạy hệ thống
