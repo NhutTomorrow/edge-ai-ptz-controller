@@ -21,6 +21,7 @@ class CameraManager:
         self.onvif_sessions = {}
         self.digital_zoom_states = {cam_id: 1.0 for cam_id in self.configs}
 
+        self.running = True #moi them vao
         # Khởi chạy luồng nạp kết nối và thu nhận frame tự động
         threading.Thread(target=self._init_all_onvif_sessions, daemon=True).start()
         for cam_id in self.configs:
@@ -30,14 +31,19 @@ class CameraManager:
         rtsp_url = self.configs[cam_id]["rtsp_url"]
         cap = cv2.VideoCapture(rtsp_url)
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
-        while True:
+        while self.running:
             ret, frame = cap.read()
             if not ret:
+                if not self.running: break
                 cap.open(rtsp_url)
                 time.sleep(1)
                 continue
             self.latest_frames[cam_id] = frame
-
+        cap.release()
+    def stop(self):
+        print("[*] Đang giải phóng kết nối phần cứng và tắt các luồng ngầm camera...")
+        self.running = False
+        time.sleep(0.5) # Chờ một khoảng ngắn để các luồng kết thúc chu kỳ read() hiện tại
     def _init_all_onvif_sessions(self):
         for cam_id, cfg in self.configs.items():
             self.onvif_sessions[cam_id] = {
@@ -99,7 +105,7 @@ class CameraManager:
             ptz, req = session["ptz_service"], session["req_move"]
             if ptz and req:
                 req.Velocity = {'PanTilt': {'x': float(pan), 'y': float(tilt)}}
-                self.ptz.ContinuousMove(req)
+                ptz.ContinuousMove(req)
                 return True
         return False
 
